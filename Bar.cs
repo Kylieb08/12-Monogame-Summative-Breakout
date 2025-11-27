@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace _12_Monogame_Summative_Breakout
 {
     internal class Bar
-{
-}
+    {
+    
+    }
 }

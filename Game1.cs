@@ -10,6 +10,8 @@ namespace _12_Monogame_Summative_Breakout
         private SpriteBatch _spriteBatch;
 
         Texture2D ballTexture, barTexture, brickTexture;
+        Ball ball;
+        Rectangle ballRect, barRect, window;
 
         public Game1()
         {
@@ -22,7 +24,14 @@ namespace _12_Monogame_Summative_Breakout
         {
             // TODO: Add your initialization logic here
 
+            window = new Rectangle(0, 0, 700, 500);
+            _graphics.PreferredBackBufferWidth = window.Width;
+            _graphics.PreferredBackBufferHeight = window.Height;
+            _graphics.ApplyChanges();
+
             base.Initialize();
+
+            ball = new Ball(ballTexture, new Rectangle(350, 260, 12, 12));
         }
 
         protected override void LoadContent()
@@ -50,6 +59,8 @@ namespace _12_Monogame_Summative_Breakout
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            ball.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }
