@@ -11,7 +11,9 @@ namespace _12_Monogame_Summative_Breakout
 
         Texture2D ballTexture, barTexture, brickTexture;
         Ball ball;
-        Rectangle ballRect, barRect, window;
+        Bar bar;
+        Rectangle barRect, window;
+        KeyboardState keyboardState;
 
         public Game1()
         {
@@ -32,6 +34,8 @@ namespace _12_Monogame_Summative_Breakout
             base.Initialize();
 
             ball = new Ball(ballTexture, new Rectangle(350, 260, 12, 12));
+
+            bar = new Bar(barTexture, new Rectangle(325, 495, 50, 5));
         }
 
         protected override void LoadContent()
@@ -51,6 +55,10 @@ namespace _12_Monogame_Summative_Breakout
 
             // TODO: Add your update logic here
 
+            keyboardState = Keyboard.GetState();
+
+            bar.Update(keyboardState);
+
             base.Update(gameTime);
         }
 
@@ -61,6 +69,7 @@ namespace _12_Monogame_Summative_Breakout
             // TODO: Add your drawing code here
 
             ball.Draw(_spriteBatch);
+            bar.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }
