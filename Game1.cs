@@ -9,6 +9,8 @@ namespace _12_Monogame_Summative_Breakout
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        Texture2D ballTexture, barTexture, brickTexture;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -28,6 +30,9 @@ namespace _12_Monogame_Summative_Breakout
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            ballTexture = Content.Load<Texture2D>("Images/circle");
+            barTexture = Content.Load<Texture2D>("Images/paddle");
+            brickTexture = Content.Load<Texture2D>("Images/rectangle");
         }
 
         protected override void Update(GameTime gameTime)
