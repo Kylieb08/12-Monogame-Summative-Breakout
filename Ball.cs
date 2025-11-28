@@ -27,10 +27,10 @@ namespace _12_Monogame_Summative_Breakout
             _speed.X = 3;
             _speed.Y = -3;
 
-            if (_location.X < window.Left || _location.Right > window.Width)
+            if (_location.Right > window.Width || _location.X < window.Left)
                 _speed.X *= -1;
 
-            if (_location.Y < window.Top || _location.Bottom > window.Bottom)
+            if (_location.Bottom > window.Bottom || _location.Y < window.Top)
                 _speed.Y *= -1;
 
             _location.Offset(_speed);

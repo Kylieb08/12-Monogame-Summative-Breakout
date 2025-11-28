@@ -61,7 +61,7 @@ namespace _12_Monogame_Summative_Breakout
             keyboardState = Keyboard.GetState();
 
             bar.Update(keyboardState, window);
-            ball.Update(window);
+            ball.Update();
             hitBox.Update(keyboardState);
 
             base.Update(gameTime);
