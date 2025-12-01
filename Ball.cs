@@ -23,14 +23,10 @@ namespace _12_Monogame_Summative_Breakout
 
         public void Update(Rectangle window)
         {
-            _speed = Vector2.Zero;
-            _speed.X = 3;
-            _speed.Y = -3;
-
             if (_location.Right > window.Width || _location.X < window.Left)
                 _speed.X *= -1;
 
-            if (_location.Bottom > window.Bottom || _location.Y < window.Top)
+            if ( _location.Y < window.Top)
                 _speed.Y *= -1;
 
             _location.Offset(_speed);
@@ -39,6 +35,12 @@ namespace _12_Monogame_Summative_Breakout
         public Rectangle Rect
         {
             get { return _location; }
+        }
+
+        public Vector2 Speed
+        {
+            get { return _speed; }
+            set { _speed = value; }
         }
 
         public void Draw(SpriteBatch spriteBatch)

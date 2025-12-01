@@ -35,6 +35,7 @@ namespace _12_Monogame_Summative_Breakout
             base.Initialize();
 
             ball = new Ball(ballTexture, new Rectangle(350, 260, 12, 12));
+            ball.Speed = new Vector2(3, -3);
 
             bar = new Bar(barTexture, new Rectangle(325, 495, 50, 5));
 
@@ -61,8 +62,11 @@ namespace _12_Monogame_Summative_Breakout
             keyboardState = Keyboard.GetState();
 
             bar.Update(keyboardState, window);
-            ball.Update();
+            ball.Update(window);
             hitBox.Update(keyboardState);
+
+            if (bar.Intersects(ball.Rect))
+                ball.Speed *= -1;
 
             base.Update(gameTime);
         }
