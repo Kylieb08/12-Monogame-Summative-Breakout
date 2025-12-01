@@ -21,15 +21,17 @@ namespace _12_Monogame_Summative_Breakout
             _texture = texture;
         }
 
-        public void Update(Rectangle window)
+        public void Update(Rectangle window, Bar bar)
         {
             if (_location.Right > window.Width || _location.X < window.Left)
                 _speed.X *= -1;
 
-            if ( _location.Y < window.Top)
+            _location.X += (int)_speed.X;
+
+            if ( _location.Y < window.Top || bar.Intersects(_location))
                 _speed.Y *= -1;
 
-            _location.Offset(_speed);
+            _location.Y += (int)_speed.Y;
         }
 
         public Rectangle Rect
