@@ -4,6 +4,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _12_Monogame_Summative_Breakout
 {
+    public enum Screen
+    {
+        Title,
+        Game,
+        Lose,
+        Win
+    }
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -15,6 +22,7 @@ namespace _12_Monogame_Summative_Breakout
         BarHitBox hitBox;
         Rectangle window;
         KeyboardState keyboardState;
+        Screen screen;
 
         public Game1()
         {
@@ -32,12 +40,14 @@ namespace _12_Monogame_Summative_Breakout
             _graphics.PreferredBackBufferHeight = window.Height;
             _graphics.ApplyChanges();
 
+            screen = Screen.Title;
+
             base.Initialize();
 
             ball = new Ball(ballTexture, new Rectangle(350, 260, 12, 12));
-            ball.Speed = new Vector2(3, -3);
+            ball.Speed = new Vector2(3, 3);
 
-            bar = new Bar(barTexture, new Rectangle(325, 495, 50, 5));
+            bar = new Bar(barTexture, new Rectangle(325, 480, 70, 15));
 
             hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
         }
@@ -60,10 +70,22 @@ namespace _12_Monogame_Summative_Breakout
             // TODO: Add your update logic here
 
             keyboardState = Keyboard.GetState();
+            
+            if (screen == Screen.Title)
+            {
+                if (keyboardState.IsKeyDown(Keys.Space))
+                    screen = Screen.Game;
+            }
 
-            bar.Update(keyboardState, window);
-            ball.Update(window, bar);
-            hitBox.Update(keyboardState);
+            else if (screen == Screen.Game)
+            {
+                bar.Update(keyboardState, window);
+                ball.Update(window, bar);
+                hitBox.Update(keyboardState);
+                
+                
+            }
+            
 
             base.Update(gameTime);
         }
@@ -74,9 +96,17 @@ namespace _12_Monogame_Summative_Breakout
 
             // TODO: Add your drawing code here
 
-            ball.Draw(_spriteBatch);
-            bar.Draw(_spriteBatch);
-            //hitBox.Draw(_spriteBatch);
+            if (screen == Screen.Title)
+            {
+                bar.Draw(_spriteBatch);
+            }
+
+            else if (screen == Screen.Game)
+            {
+                ball.Draw(_spriteBatch);
+                bar.Draw(_spriteBatch);
+                //hitBox.Draw(_spriteBatch);
+            }
 
             base.Draw(gameTime);
         }
