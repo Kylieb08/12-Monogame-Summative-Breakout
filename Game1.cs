@@ -16,7 +16,7 @@ namespace _12_Monogame_Summative_Breakout
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D ballTexture, barTexture, brickTexture;
+        Texture2D ballTexture, barTexture, brickTexture, loseScreenTexture;
         Ball ball;
         Bar bar;
         BarHitBox hitBox;
@@ -61,6 +61,7 @@ namespace _12_Monogame_Summative_Breakout
             ballTexture = Content.Load<Texture2D>("Images/circle");
             barTexture = Content.Load<Texture2D>("Images/paddle");
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
+            loseScreenTexture = Content.Load<Texture2D>("Images/haunted-end-screen");
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
         }
@@ -86,7 +87,10 @@ namespace _12_Monogame_Summative_Breakout
                 ball.Update(window, bar);
                 hitBox.Update(keyboardState);
                 
-                
+                if (ball.Rect.Y > window.Bottom)
+                {
+                    screen = Screen.Lose;
+                }
             }
             
 
@@ -120,7 +124,16 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.End();
             }
 
-            base.Draw(gameTime);
+            else if (screen == Screen.Lose)
+            {
+                _spriteBatch.Begin();
+
+                _spriteBatch.Draw(loseScreenTexture, window, Color.White);
+
+                _spriteBatch.End();
+            }
+
+                base.Draw(gameTime);
         }
     }
 }

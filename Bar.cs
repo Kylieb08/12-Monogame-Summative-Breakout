@@ -42,7 +42,7 @@ namespace _12_Monogame_Summative_Breakout
             _location.Offset(_speed);
         }
 
-        public Rectangle Rect
+        public Rectangle BarRect
         {
             get { return _location; }
         }

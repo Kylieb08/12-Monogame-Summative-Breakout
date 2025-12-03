@@ -28,9 +28,17 @@ namespace _12_Monogame_Summative_Breakout
 
             _location.X += (int)_speed.X;
 
-            if ( _location.Y < window.Top || bar.Intersects(_location))
+            if ( _location.Y < window.Top)
                 _speed.Y *= -1;
 
+            if (bar.Intersects(_location))
+            {
+                if (_location.Top < bar.BarRect.Bottom || _location.Bottom > bar.BarRect.Top)
+                    _speed.Y *= -1;
+                if (_location.Left < bar.BarRect.Left || _location.Right > bar.BarRect.Right)
+                    _speed.X *= -1;
+            }
+            
             _location.Y += (int)_speed.Y;
         }
 
