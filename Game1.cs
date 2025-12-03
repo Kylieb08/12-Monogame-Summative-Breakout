@@ -23,6 +23,7 @@ namespace _12_Monogame_Summative_Breakout
         Rectangle window;
         KeyboardState keyboardState;
         Screen screen;
+        SpriteFont titleFont;
 
         public Game1()
         {
@@ -60,6 +61,8 @@ namespace _12_Monogame_Summative_Breakout
             ballTexture = Content.Load<Texture2D>("Images/circle");
             barTexture = Content.Load<Texture2D>("Images/paddle");
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
+
+            titleFont = Content.Load<SpriteFont>("Font/titleFont");
         }
 
         protected override void Update(GameTime gameTime)
@@ -92,20 +95,29 @@ namespace _12_Monogame_Summative_Breakout
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
             if (screen == Screen.Title)
             {
+                _spriteBatch.Begin();
+
                 bar.Draw(_spriteBatch);
+                _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(125, 250), Color.White);
+
+                _spriteBatch.End();
             }
 
             else if (screen == Screen.Game)
             {
+                _spriteBatch.Begin();
+
                 ball.Draw(_spriteBatch);
                 bar.Draw(_spriteBatch);
                 //hitBox.Draw(_spriteBatch);
+
+                _spriteBatch.End();
             }
 
             base.Draw(gameTime);

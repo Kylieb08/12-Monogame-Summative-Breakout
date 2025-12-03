@@ -13,6 +13,16 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Font/futura.ttf
+/copy:Font/futura.ttf
+
+#begin Font/titleFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font/titleFont.spritefont
+
 #begin Images/circle.png
 /importer:TextureImporter
 /processor:TextureProcessor
