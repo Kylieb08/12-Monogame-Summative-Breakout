@@ -16,7 +16,7 @@ namespace _12_Monogame_Summative_Breakout
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D ballTexture, barTexture, brickTexture, loseScreenTexture;
+        Texture2D ballTexture, barTexture, brickTexture;
         Ball ball;
         Bar bar;
         BarHitBox hitBox;
@@ -61,7 +61,6 @@ namespace _12_Monogame_Summative_Breakout
             ballTexture = Content.Load<Texture2D>("Images/circle");
             barTexture = Content.Load<Texture2D>("Images/paddle");
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
-            loseScreenTexture = Content.Load<Texture2D>("Images/haunted-end-screen");
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
         }
@@ -92,9 +91,19 @@ namespace _12_Monogame_Summative_Breakout
                     screen = Screen.Lose;
                 }
             }
-            
 
-            base.Update(gameTime);
+            else if (screen == Screen.Lose)
+            {
+                if (keyboardState.IsKeyDown (Keys.Enter))
+                {
+                    screen = Screen.Title;
+                    ball.Rect.X = 350;
+
+                }
+                    
+            }
+
+                base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -128,7 +137,8 @@ namespace _12_Monogame_Summative_Breakout
             {
                 _spriteBatch.Begin();
 
-                _spriteBatch.Draw(loseScreenTexture, window, Color.White);
+                _spriteBatch.DrawString(titleFont, "Press Enter to Play Again", new Vector2(125, 200), Color.White);
+                _spriteBatch.DrawString(titleFont, "Press Escape to Exit", new Vector2(125, 250), Color.White);
 
                 _spriteBatch.End();
             }
