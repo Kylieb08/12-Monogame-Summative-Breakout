@@ -53,7 +53,7 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     _speed.X *= -1;
                     _speed.Y *= -1;
-                    _location.X = bar.BarRect.Left - _location.Width;
+                    _location.X = bar.BarRect.Right;
                     _location.X += (int)_speed.X;
                     _location.Y += (int)_speed.Y;
                 }
@@ -62,13 +62,11 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     _speed.X *= -1;
                     _speed.Y *= -1;
-                    _location.X = bar.BarRect.Right;
+                    _location.X = bar.BarRect.Left - _location.Width;
                     _location.X += (int)_speed.X;
                     _location.Y += (int)_speed.Y;
                 }
             }
-            
-           
         }
 
         public Rectangle Rect
