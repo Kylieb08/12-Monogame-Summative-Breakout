@@ -24,6 +24,7 @@ namespace _12_Monogame_Summative_Breakout
         KeyboardState keyboardState;
         Screen screen;
         SpriteFont titleFont;
+        Rectangle ballRect, barRect;
 
         public Game1()
         {
@@ -43,12 +44,15 @@ namespace _12_Monogame_Summative_Breakout
 
             screen = Screen.Title;
 
+            ballRect = new Rectangle(350, 260, 12, 12);
+            barRect = new Rectangle(325, 480, 70, 15);
+
             base.Initialize();
 
-            ball = new Ball(ballTexture, new Rectangle(350, 260, 12, 12));
+            ball = new Ball(ballTexture, ballRect);
             ball.Speed = new Vector2(3, 3);
 
-            bar = new Bar(barTexture, new Rectangle(325, 480, 70, 15));
+            bar = new Bar(barTexture, barRect);
 
             hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
         }
@@ -76,6 +80,15 @@ namespace _12_Monogame_Summative_Breakout
             
             if (screen == Screen.Title)
             {
+                ballRect.X = 350;
+                ballRect.Y = 260;
+                barRect.X = 325;
+                barRect.Y = 480;
+
+                ball = new Ball(ballTexture, ballRect);
+                ball.Speed = new Vector2(3, 3);
+
+                bar = new Bar(barTexture, barRect);
                 if (keyboardState.IsKeyDown(Keys.Space))
                     screen = Screen.Game;
             }
@@ -97,8 +110,6 @@ namespace _12_Monogame_Summative_Breakout
                 if (keyboardState.IsKeyDown (Keys.Enter))
                 {
                     screen = Screen.Title;
-                    ball.Rect.X = 350;
-
                 }
                     
             }
