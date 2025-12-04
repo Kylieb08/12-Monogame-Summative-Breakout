@@ -23,23 +23,52 @@ namespace _12_Monogame_Summative_Breakout
 
         public void Update(Rectangle window, Bar bar)
         {
-            if (_location.Right > window.Width || _location.X < window.Left)
+            _location.X += (int)_speed.X;
+            _location.Y += (int)_speed.Y;
+
+            if (_location.Right >= window.Width || _location.X <= window.Left)
                 _speed.X *= -1;
 
-            _location.X += (int)_speed.X;
 
-            if ( _location.Y < window.Top)
+            if ( _location.Y <= window.Top)
                 _speed.Y *= -1;
 
             if (bar.Intersects(_location))
             {
-                if (_location.Top < bar.BarRect.Bottom || _location.Bottom > bar.BarRect.Top)
+                if (_location.Bottom >= bar.BarRect.Top)
+                {
+                    if (bar.BarRect.Left + (bar.BarRect.Width / 2) >= _location.Center.X)
+                        _speed.X = -Math.Abs(_speed.X);
+
+                    else
+                        _speed.X = Math.Abs(_speed.X);
+
                     _speed.Y *= -1;
-                if (_location.Left < bar.BarRect.Left || _location.Right > bar.BarRect.Right)
+                    _location.Y = bar.BarRect.Top - _location.Height;
+                    _location.X += (int)_speed.X;
+                    _location.Y += (int)_speed.Y;
+                }
+                    
+                if (_location.Left >= bar.BarRect.Right)
+                {
                     _speed.X *= -1;
+                    _speed.Y *= -1;
+                    _location.X = bar.BarRect.Left - _location.Width;
+                    _location.X += (int)_speed.X;
+                    _location.Y += (int)_speed.Y;
+                }
+
+                if (_location.Right <= bar.BarRect.Left)
+                {
+                    _speed.X *= -1;
+                    _speed.Y *= -1;
+                    _location.X = bar.BarRect.Right;
+                    _location.X += (int)_speed.X;
+                    _location.Y += (int)_speed.Y;
+                }
             }
             
-            _location.Y += (int)_speed.Y;
+           
         }
 
         public Rectangle Rect
