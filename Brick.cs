@@ -38,5 +38,20 @@ namespace _12_Monogame_Summative_Breakout
             index = -1;
             return false;
         }
+
+        public Brick (Texture2D textures, Rectangle location)
+        {
+            _location = location;
+            _texture = textures;
+            _bricks = new List<Rectangle>();
+
+            for (int row = 0; row < 1; row++)
+            {
+                //for (int col = 0; col < 10; col++)
+                //{
+                //    Rectangle 
+                //}
+            }
+        }
     }
 }
