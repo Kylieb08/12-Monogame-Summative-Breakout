@@ -19,6 +19,7 @@ namespace _12_Monogame_Summative_Breakout
         Texture2D ballTexture, barTexture, brickTexture;
         Ball ball;
         Bar bar;
+        Brick brick;
         BarHitBox hitBox;
         Rectangle window;
         KeyboardState keyboardState;
@@ -53,6 +54,8 @@ namespace _12_Monogame_Summative_Breakout
             ball.Speed = new Vector2(3, 3);
 
             bar = new Bar(barTexture, barRect);
+
+            brick = new Brick();
 
             hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
         }
