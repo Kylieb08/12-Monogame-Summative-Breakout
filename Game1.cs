@@ -44,7 +44,7 @@ namespace _12_Monogame_Summative_Breakout
 
             screen = Screen.Title;
 
-            ballRect = new Rectangle(350, 260, 12, 12);
+            ballRect = new Rectangle(10, 10, 12, 12);
             barRect = new Rectangle(325, 480, 70, 15);
 
             base.Initialize();

@@ -9,8 +9,13 @@ using System.Threading.Tasks;
 
 namespace _12_Monogame_Summative_Breakout
 {
-    internal class Brick
+    public class Brick
     {
+        private Rectangle _location;
+        private Texture2D _texture;
+        private List<Color> _colours;
+        private List<Rectangle> _rects;
+
         
     }
 }
