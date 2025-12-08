@@ -25,39 +25,18 @@ namespace _12_Monogame_Summative_Breakout
             get { return _bricks; }
         }
 
-        public bool Intersects(Rectangle ballLocation, out int index)
+        public bool Intersects(Rectangle ballLocation)
         {
-            for (int i = 0; i < _bricks.Count; i++)
-            {
-                if (_bricks[i].Intersects(ballLocation))
-                {
-                    index = i;
-                    return true;
-                }
-            }
-            index = -1;
-            return false;
+            return _location.Intersects(ballLocation);
         }
 
         public Brick(Texture2D textures, Rectangle location)
         {
             _location = location;
             _texture = textures;
-            _bricks = new List<Rectangle>();
+            
 
-            for (int row = 0; row < 8; row++)
-            {
-                for (int col = 0; col < 10; col++)
-                {
-                    Rectangle brickRect = new Rectangle(
-                        location.X + col * (location.Width + 2),
-                        location.Y + row * (location.Height + 2),
-                        location.Width,
-                        location.Height);
-
-                    _bricks.Add(brickRect);
-                }
-            }
+            
         }
 
         public bool Intersects(Rectangle brick)

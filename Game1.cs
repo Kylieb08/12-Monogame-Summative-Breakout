@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace _12_Monogame_Summative_Breakout
 {
@@ -25,6 +26,7 @@ namespace _12_Monogame_Summative_Breakout
         KeyboardState keyboardState;
         Screen screen;
         SpriteFont titleFont;
+        List<Brick> bricks;
 
         public Game1()
         {
@@ -55,7 +57,21 @@ namespace _12_Monogame_Summative_Breakout
 
             bar = new Bar(barTexture, barRect);
 
-            brick = new Brick(brickTexture, brickRect);
+            for (int y = 0; y < 8; y++)
+            {
+                for (int x = 0; x < 10; x++)
+                {
+                    Rectangle brickRect = new Rectangle(
+                        x * 70 + 2,
+                        y * 20 + 2,
+                        70,
+                        20);
+
+                    bricks.Add(new Brick(brickTexture, brickRect));
+                }
+            }
+
+            brick = new Brick(brickTexture, brickRect, brickColour);
 
             hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
         }
