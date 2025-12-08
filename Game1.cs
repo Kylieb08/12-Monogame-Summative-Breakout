@@ -51,7 +51,7 @@ namespace _12_Monogame_Summative_Breakout
             base.Initialize();
 
             ball = new Ball(ballTexture, ballRect);
-            ball.Speed = new Vector2(3, 3);
+            ball.Speed = new Vector2(3, 2);
 
             bar = new Bar(barTexture, barRect);
 
@@ -114,7 +114,6 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     screen = Screen.Title;
                 }
-                    
             }
 
                 base.Update(gameTime);
