@@ -21,11 +21,10 @@ namespace _12_Monogame_Summative_Breakout
         Bar bar;
         Brick brick;
         BarHitBox hitBox;
-        Rectangle window;
+        Rectangle window, ballRect, barRect, brickRect;
         KeyboardState keyboardState;
         Screen screen;
         SpriteFont titleFont;
-        Rectangle ballRect, barRect;
 
         public Game1()
         {
@@ -47,6 +46,7 @@ namespace _12_Monogame_Summative_Breakout
 
             ballRect = new Rectangle(10, 10, 12, 12);
             barRect = new Rectangle(325, 480, 70, 15);
+            brickRect = new Rectangle(0, 0, 70, 20);
 
             base.Initialize();
 
@@ -55,7 +55,7 @@ namespace _12_Monogame_Summative_Breakout
 
             bar = new Bar(barTexture, barRect);
 
-            brick = new Brick();
+            brick = new Brick(brickTexture, brickRect);
 
             hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
         }
@@ -99,7 +99,7 @@ namespace _12_Monogame_Summative_Breakout
             else if (screen == Screen.Game)
             {
                 bar.Update(keyboardState, window);
-                ball.Update(window, bar);
+                ball.Update(window, bar, brick);
                 hitBox.Update(keyboardState);
                 
                 if (ball.Rect.Y > window.Bottom)
@@ -134,6 +134,8 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(125, 250), Color.White);
 
                 _spriteBatch.End();
+
+                
             }
 
             else if (screen == Screen.Game)
@@ -142,6 +144,7 @@ namespace _12_Monogame_Summative_Breakout
 
                 ball.Draw(_spriteBatch);
                 bar.Draw(_spriteBatch);
+                brick.Draw(_spriteBatch);
                 //hitBox.Draw(_spriteBatch);
 
                 _spriteBatch.End();

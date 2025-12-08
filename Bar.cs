@@ -47,14 +47,14 @@ namespace _12_Monogame_Summative_Breakout
             get { return _location; }
         }
 
-        public bool Contains(Point ball)
+        public bool Contains(Point bar)
         {
-            return _location.Contains(ball);
+            return _location.Contains(bar);
         }
 
-        public bool Intersects(Rectangle ball)
+        public bool Intersects(Rectangle bar)
         {
-            return _location.Intersects(ball);
+            return _location.Intersects(bar);
         }
 
         public void Draw(SpriteBatch spriteBatch)

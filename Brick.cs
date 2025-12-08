@@ -39,18 +39,45 @@ namespace _12_Monogame_Summative_Breakout
             return false;
         }
 
-        public Brick (Texture2D textures, Rectangle location)
+        public Brick(Texture2D textures, Rectangle location)
         {
             _location = location;
             _texture = textures;
             _bricks = new List<Rectangle>();
 
-            for (int row = 0; row < 1; row++)
+            for (int row = 0; row < 8; row++)
             {
-                //for (int col = 0; col < 10; col++)
-                //{
-                //    Rectangle 
-                //}
+                for (int col = 0; col < 10; col++)
+                {
+                    Rectangle brickRect = new Rectangle(
+                        location.X + col * (location.Width + 2),
+                        location.Y + row * (location.Height + 2),
+                        location.Width,
+                        location.Height);
+
+                    _bricks.Add(brickRect);
+                }
+            }
+        }
+
+        public bool Intersects(Rectangle brick)
+        {
+            return _location.Intersects(brick);
+        }
+
+        public void RemoveBrick(int index)
+        {
+            if (index >= 0 && index < _bricks.Count)
+            {
+                _bricks.RemoveAt(index);
+            }
+        }
+
+        public void Draw (SpriteBatch spriteBatch)
+        {
+            foreach (var brick in _bricks)
+            {
+                spriteBatch.Draw(_texture, brick, Color.DarkCyan);
             }
         }
     }

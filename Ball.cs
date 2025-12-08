@@ -21,7 +21,7 @@ namespace _12_Monogame_Summative_Breakout
             _texture = texture;
         }
 
-        public void Update(Rectangle window, Bar bar)
+        public void Update(Rectangle window, Bar bar, Brick brick)
         {
             _location.X += (int)_speed.X;
             _location.Y += (int)_speed.Y;
@@ -38,7 +38,7 @@ namespace _12_Monogame_Summative_Breakout
                 if (_location.Bottom >= bar.BarRect.Top)
                 {
                     if (bar.BarRect.Left + (bar.BarRect.Width / 2) >= _location.Center.X)
-                        _speed.X = -Math.Abs(_speed.X);
+                        _speed.X = -Math.Abs(_speed.X); //^this breaks when I do .Center. I do not know why
 
                     else
                         _speed.X = Math.Abs(_speed.X);
@@ -66,6 +66,12 @@ namespace _12_Monogame_Summative_Breakout
                     _location.X += (int)_speed.X;
                     _location.Y += (int)_speed.Y;
                 }
+            }
+
+            if (brick.Intersects(_location, out int index))
+            {
+                brick.RemoveBrick(index);
+                _speed.Y *= -1;
             }
         }
 
