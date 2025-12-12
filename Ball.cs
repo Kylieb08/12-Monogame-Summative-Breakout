@@ -86,6 +86,11 @@ namespace _12_Monogame_Summative_Breakout
             set { _speed = value; }
         }
 
+        public bool Intersects(Rectangle ball)
+        {
+            return _location.Intersects(ball);
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _location, null, Color.White, 0f, 

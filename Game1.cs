@@ -74,7 +74,7 @@ namespace _12_Monogame_Summative_Breakout
                         20);
 
                     if (y < 22)
-                        brickColour = Color.Pink;
+                        brickColour = Color.PaleVioletRed;
 
                     else if (y < 44)
                         brickColour = Color.Red;
@@ -87,6 +87,15 @@ namespace _12_Monogame_Summative_Breakout
 
                     else if (y < 110)
                         brickColour = Color.Green;
+
+                    else if (y < 132)
+                        brickColour = Color.Blue;
+
+                    else if (y < 154)
+                        brickColour = Color.Purple;
+
+                    else
+                        brickColour = Color.MediumTurquoise;
 
 
                         bricks.Add(new Brick(brickTexture, brickRect, brickColour));
