@@ -56,8 +56,6 @@ namespace _12_Monogame_Summative_Breakout
 
             base.Initialize();
 
-            
-
             ball = new Ball(ballTexture, ballRect);
             ball.Speed = new Vector2(3, 2);
 
@@ -68,10 +66,7 @@ namespace _12_Monogame_Summative_Breakout
                 for (int x = 0; x < window.Width; x += 72)
                 {
                     Rectangle brickRect = new Rectangle(
-                        x,
-                        y,
-                        70,
-                        20);
+                        x, y, 70, 20);
 
                     if (y < 22)
                         brickColour = Color.PaleVioletRed;
@@ -182,8 +177,6 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(125, 250), Color.White);
 
                 _spriteBatch.End();
-
-                
             }
 
             else if (screen == Screen.Game)
@@ -192,7 +185,6 @@ namespace _12_Monogame_Summative_Breakout
 
                 ball.Draw(_spriteBatch);
                 bar.Draw(_spriteBatch);
-
                
                 foreach(Brick brick in bricks)
                     brick.Draw(_spriteBatch);
