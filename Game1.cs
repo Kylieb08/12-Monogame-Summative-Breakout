@@ -25,6 +25,7 @@ namespace _12_Monogame_Summative_Breakout
         Rectangle window, ballRect, barRect, brickRect;
         KeyboardState keyboardState;
         Screen screen;
+        Color brickColour;
         SpriteFont titleFont;
         List<Brick> bricks;
 
@@ -50,28 +51,51 @@ namespace _12_Monogame_Summative_Breakout
             barRect = new Rectangle(325, 480, 70, 15);
             brickRect = new Rectangle(0, 0, 70, 20);
 
+            brickColour = Color.DarkCyan;
+            bricks = new List<Brick>();
+
             base.Initialize();
+
+            
 
             ball = new Ball(ballTexture, ballRect);
             ball.Speed = new Vector2(3, 2);
 
             bar = new Bar(barTexture, barRect);
 
-            for (int y = 0; y < 8; y++)
+            for (int y = 0; y < 160; y += 22)
             {
-                for (int x = 0; x < 10; x++)
+                for (int x = 0; x < window.Width; x += 72)
                 {
                     Rectangle brickRect = new Rectangle(
-                        x * 70 + 2,
-                        y * 20 + 2,
+                        x,
+                        y,
                         70,
                         20);
 
-                    bricks.Add(new Brick(brickTexture, brickRect));
+                    if (y < 22)
+                        brickColour = Color.Pink;
+
+                    else if (y < 44)
+                        brickColour = Color.Red;
+
+                    else if (y < 66)
+                        brickColour = Color.Orange;
+
+                    else if (y < 88)
+                        brickColour = Color.Yellow;
+
+                    else if (y < 110)
+                        brickColour = Color.Green;
+
+
+                        bricks.Add(new Brick(brickTexture, brickRect, brickColour));
                 }
             }
 
             brick = new Brick(brickTexture, brickRect, brickColour);
+
+            brick.Colour = brickColour;
 
             hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
         }
@@ -159,7 +183,11 @@ namespace _12_Monogame_Summative_Breakout
 
                 ball.Draw(_spriteBatch);
                 bar.Draw(_spriteBatch);
-                brick.Draw(_spriteBatch);
+
+               
+                foreach(Brick brick in bricks)
+                    brick.Draw(_spriteBatch);
+
                 //hitBox.Draw(_spriteBatch);
 
                 _spriteBatch.End();

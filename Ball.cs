@@ -68,11 +68,11 @@ namespace _12_Monogame_Summative_Breakout
                 }
             }
 
-            if (brick.Intersects(_location, out int index))
-            {
-                brick.RemoveBrick(index);
-                _speed.Y *= -1;
-            }
+            //if (brick.Intersects(_location, out int index))
+            //{
+            //    brick.RemoveBrick(index);
+            //    _speed.Y *= -1;
+            //}
         }
 
         public Rectangle Rect
