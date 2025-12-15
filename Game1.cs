@@ -68,8 +68,7 @@ namespace _12_Monogame_Summative_Breakout
             {
                 for (int x = 0; x < window.Width; x += 72)
                 {
-                    Rectangle brickRect = new Rectangle(
-                        x, y, 70, 20);
+                    Rectangle brickRect = new Rectangle(x, y, 70, 20);
 
                     if (y < 22)
                         brickColour = Color.PaleVioletRed;
@@ -94,7 +93,6 @@ namespace _12_Monogame_Summative_Breakout
 
                     else
                         brickColour = Color.MediumTurquoise;
-
 
                  bricks.Add(new Brick(brickTexture, brickRect, brickColour));
                 }
@@ -162,7 +160,6 @@ namespace _12_Monogame_Summative_Breakout
                         bricks.RemoveAt(i);
                     }
                 }
-
             }
 
             else if (screen == Screen.Lose)

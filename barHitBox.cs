@@ -49,12 +49,10 @@ namespace _12_Monogame_Summative_Breakout
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
 
             spriteBatch.Draw(_texture, _location, null, Color.Red * 0.5f, 0f,
                 Vector2.Zero, SpriteEffects.None, 1f);
 
-            spriteBatch.End();
         }
     }
 }
