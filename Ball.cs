@@ -68,9 +68,8 @@ namespace _12_Monogame_Summative_Breakout
                 }
             }
 
-            //if (brick.Intersects(_location, out int index))
+            //if (brick.Intersects(_location))
             //{
-            //    brick.RemoveBrick(index);
             //    _speed.Y *= -1;
             //}
         }
@@ -79,6 +78,14 @@ namespace _12_Monogame_Summative_Breakout
         {
             get { return _location; }
         }
+
+
+        public float YSpeed
+        {
+            get { return _speed.Y; }
+            set { _speed.Y = value; }
+        }
+
 
         public Vector2 Speed
         {

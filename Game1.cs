@@ -28,6 +28,7 @@ namespace _12_Monogame_Summative_Breakout
         Color brickColour;
         SpriteFont titleFont;
         List<Brick> bricks;
+        Vector2 ballSpeed;
 
         public Game1()
         {
@@ -54,10 +55,12 @@ namespace _12_Monogame_Summative_Breakout
             brickColour = Color.DarkCyan;
             bricks = new List<Brick>();
 
+            ballSpeed = new Vector2(3, 2);
+
             base.Initialize();
 
             ball = new Ball(ballTexture, ballRect);
-            ball.Speed = new Vector2(3, 2);
+            ball.Speed = ballSpeed;
 
             bar = new Bar(barTexture, barRect);
 
@@ -93,7 +96,7 @@ namespace _12_Monogame_Summative_Breakout
                         brickColour = Color.MediumTurquoise;
 
 
-                        bricks.Add(new Brick(brickTexture, brickRect, brickColour));
+                 bricks.Add(new Brick(brickTexture, brickRect, brickColour));
                 }
             }
 
@@ -150,6 +153,16 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     screen = Screen.Lose;
                 }
+
+                for (int i = 0; i < bricks.Count; i++)
+                {
+                    if (bricks[i].Intersects(ball.Rect))
+                    {
+                        ball.YSpeed *= -1;
+                        bricks.RemoveAt(i);
+                    }
+                }
+
             }
 
             else if (screen == Screen.Lose)
