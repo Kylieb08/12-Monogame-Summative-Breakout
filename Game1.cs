@@ -176,7 +176,7 @@ namespace _12_Monogame_Summative_Breakout
                         ball.XSpeed = generator.Next(-5, -2);
                 }
 
-                if (bricks ==  null)
+                if (bricks.Count == 0)
                     screen = Screen.Win;
             }
 
