@@ -32,7 +32,7 @@ namespace _12_Monogame_Summative_Breakout
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
-        bool powerUp = false, playAgain = false;
+        bool randomBallXSpeed = true, playAgain = false;
 
         public Game1()
         {
@@ -160,7 +160,7 @@ namespace _12_Monogame_Summative_Breakout
             else if (screen == Screen.Game)
             {
                 bar.Update(keyboardState, window);
-                ball.Update(window, bar, brick);
+                ball.Update(window, bar);
                 hitBox.Update(keyboardState);
                 
                 if (ball.Rect.Y > window.Bottom)
@@ -168,6 +168,7 @@ namespace _12_Monogame_Summative_Breakout
                     screen = Screen.Lose;
                 }
 
+                //this doesn't work if ball X speed is +/-5
                 for (int i = 0; i < bricks.Count; i++)
                 {
                     if (bricks[i].Intersects(ball.Rect))
@@ -177,7 +178,7 @@ namespace _12_Monogame_Summative_Breakout
                     }
                 }
 
-                if (powerUp && keyboardState.IsKeyUp(Keys.Space) && prevKeyboardState.IsKeyDown(Keys.Space))
+                if (randomBallXSpeed && keyboardState.IsKeyUp(Keys.Space) && prevKeyboardState.IsKeyDown(Keys.Space))
                 {
                     if (ball.XSpeed > 0)
                         ball.XSpeed = generator.Next(3, 6);

@@ -21,12 +21,12 @@ namespace _12_Monogame_Summative_Breakout
             _texture = texture;
         }
 
-        public void Update(Rectangle window, Bar bar, Brick brick)
+        public void Update(Rectangle window, Bar bar)
         {
             _location.X += (int)_speed.X;
             _location.Y += (int)_speed.Y;
 
-            if (_location.Right >= window.Width || _location.X <= window.Left)
+            if (_location.Right > window.Width || _location.X < window.Left)
                 _speed.X *= -1;
 
 
@@ -67,11 +67,6 @@ namespace _12_Monogame_Summative_Breakout
                     _location.Y += (int)_speed.Y;
                 }
             }
-
-            //if (brick.Intersects(_location))
-            //{
-            //    _speed.Y *= -1;
-            //}
         }
 
         public Rectangle Rect
