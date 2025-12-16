@@ -32,7 +32,7 @@ namespace _12_Monogame_Summative_Breakout
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
-        bool powerUp = true;
+        bool powerUp = true, playAgain = false;
 
         public Game1()
         {
@@ -68,6 +68,63 @@ namespace _12_Monogame_Summative_Breakout
 
             bar = new Bar(barTexture, barRect);
 
+            //for (int y = 0; y < 160; y += 22)
+            //{
+            //    for (int x = 0; x < window.Width; x += 72)
+            //    {
+            //        Rectangle brickRect = new Rectangle(x, y, 70, 20);
+
+            //        if (y < 22)
+            //            brickColour = Color.PaleVioletRed;
+
+            //        else if (y < 44)
+            //            brickColour = Color.Red;
+
+            //        else if (y < 66)
+            //            brickColour = Color.Orange;
+
+            //        else if (y < 88)
+            //            brickColour = Color.Yellow;
+
+            //        else if (y < 110)
+            //            brickColour = Color.Green;
+
+            //        else if (y < 132)
+            //            brickColour = Color.Blue;
+
+            //        else if (y < 154)
+            //            brickColour = Color.Purple;
+
+            //        else
+            //            brickColour = Color.MediumTurquoise;
+
+            //     bricks.Add(new Brick(brickTexture, brickRect, brickColour));
+            //    }
+            //}
+            GenerateBricks();
+
+            brick = new Brick(brickTexture, brickRect, brickColour);
+
+            brick.Colour = brickColour;
+
+            hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // TODO: use this.Content to load your game content here
+            ballTexture = Content.Load<Texture2D>("Images/circle");
+            barTexture = Content.Load<Texture2D>("Images/paddle");
+            brickTexture = Content.Load<Texture2D>("Images/rectangle");
+
+            titleFont = Content.Load<SpriteFont>("Font/titleFont");
+            speedFont = Content.Load<SpriteFont>("Font/speedFont");
+        }
+
+        public void GenerateBricks()
+        {
             for (int y = 0; y < 160; y += 22)
             {
                 for (int x = 0; x < window.Width; x += 72)
@@ -98,28 +155,9 @@ namespace _12_Monogame_Summative_Breakout
                     else
                         brickColour = Color.MediumTurquoise;
 
-                 bricks.Add(new Brick(brickTexture, brickRect, brickColour));
+                    bricks.Add(new Brick(brickTexture, brickRect, brickColour));
                 }
             }
-
-            brick = new Brick(brickTexture, brickRect, brickColour);
-
-            brick.Colour = brickColour;
-
-            hitBox = new BarHitBox(brickTexture, new Rectangle(325, 495, 50, 5));
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            ballTexture = Content.Load<Texture2D>("Images/circle");
-            barTexture = Content.Load<Texture2D>("Images/paddle");
-            brickTexture = Content.Load<Texture2D>("Images/rectangle");
-
-            titleFont = Content.Load<SpriteFont>("Font/titleFont");
-            speedFont = Content.Load<SpriteFont>("Font/speedFont");
         }
 
         protected override void Update(GameTime gameTime)
@@ -145,6 +183,11 @@ namespace _12_Monogame_Summative_Breakout
                 bar = new Bar(barTexture, barRect);
                 if (keyboardState.IsKeyDown(Keys.Space))
                     screen = Screen.Game;
+
+                if (playAgain)
+                    GenerateBricks();
+
+                playAgain = false;
             }
 
             else if (screen == Screen.Game)
@@ -184,6 +227,7 @@ namespace _12_Monogame_Summative_Breakout
             {
                 if (keyboardState.IsKeyDown (Keys.Enter))
                 {
+                    playAgain = true;
                     screen = Screen.Title;
                 }
             }
@@ -192,6 +236,7 @@ namespace _12_Monogame_Summative_Breakout
             {
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
+                    playAgain = true;
                     screen = Screen.Title;
                 }
             }
