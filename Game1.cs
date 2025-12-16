@@ -32,7 +32,7 @@ namespace _12_Monogame_Summative_Breakout
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
-        bool powerUp = false;
+        bool powerUp = true;
 
         public Game1()
         {
@@ -175,6 +175,9 @@ namespace _12_Monogame_Summative_Breakout
                     else if (ball.XSpeed < 0)
                         ball.XSpeed = generator.Next(-5, -2);
                 }
+
+                if (bricks ==  null)
+                    screen = Screen.Win;
             }
 
             else if (screen == Screen.Lose)
@@ -185,7 +188,15 @@ namespace _12_Monogame_Summative_Breakout
                 }
             }
 
-                base.Update(gameTime);
+            else if (screen == Screen.Win)
+            {
+                if (keyboardState.IsKeyDown(Keys.Enter))
+                {
+                    screen = Screen.Title;
+                }
+            }
+
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -226,13 +237,25 @@ namespace _12_Monogame_Summative_Breakout
             {
                 _spriteBatch.Begin();
 
+                _spriteBatch.DrawString(titleFont, "You Lose :(", new Vector2(125, 150), Color.White);
                 _spriteBatch.DrawString(titleFont, "Press Enter to Play Again", new Vector2(125, 200), Color.White);
                 _spriteBatch.DrawString(titleFont, "Press Escape to Exit", new Vector2(125, 250), Color.White);
 
                 _spriteBatch.End();
             }
 
-                base.Draw(gameTime);
+            else if (screen == Screen.Win)
+            {
+                _spriteBatch.Begin();
+
+                _spriteBatch.DrawString(titleFont, "You Win!", new Vector2(125, 150), Color.White);
+                _spriteBatch.DrawString(titleFont, "Press Enter to Play Again", new Vector2(125, 200), Color.White);
+                _spriteBatch.DrawString(titleFont, "Press Escape to Exit", new Vector2(125, 250), Color.White);
+
+                _spriteBatch.End();
+            }
+
+            base.Draw(gameTime);
         }
     }
 }
