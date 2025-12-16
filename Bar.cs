@@ -27,14 +27,14 @@ namespace _12_Monogame_Summative_Breakout
             _speed = Vector2.Zero;
             if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
             {
-                _speed.X = -4;
+                _speed.X = -5;
                 if (_location.X < 5)
                     _location.X = 5;
             }
 
             if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
             {
-                _speed.X = 4;
+                _speed.X = 5;
                 if (_location.Right > (window.Width) - 5)
                     _location.X = (window.Width - _location.Width) - 5;
             }

@@ -26,13 +26,13 @@ namespace _12_Monogame_Summative_Breakout
         Brick brick;
         BarHitBox hitBox;
         Rectangle window, ballRect, barRect, brickRect;
-        KeyboardState keyboardState;
+        KeyboardState keyboardState, prevKeyboardState;
         Screen screen;
         Color brickColour;
-        SpriteFont titleFont;
+        SpriteFont titleFont, speedFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
-        bool powerUp = false;
+        bool powerUp = true;
 
         public Game1()
         {
@@ -45,7 +45,7 @@ namespace _12_Monogame_Summative_Breakout
         {
             // TODO: Add your initialization logic here
 
-            window = new Rectangle(0, 0, 718, 500);
+            window = new Rectangle(0, 0, 718, 530);
             _graphics.PreferredBackBufferWidth = window.Width;
             _graphics.PreferredBackBufferHeight = window.Height;
             _graphics.ApplyChanges();
@@ -119,6 +119,7 @@ namespace _12_Monogame_Summative_Breakout
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
+            speedFont = Content.Load<SpriteFont>("Font/speedFont");
         }
 
         protected override void Update(GameTime gameTime)
@@ -128,6 +129,7 @@ namespace _12_Monogame_Summative_Breakout
 
             // TODO: Add your update logic here
 
+            prevKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
             
             if (screen == Screen.Title)
@@ -165,10 +167,14 @@ namespace _12_Monogame_Summative_Breakout
                     }
                 }
 
-                if (powerUp)
+                if (powerUp && keyboardState.IsKeyUp(Keys.Space) && prevKeyboardState.IsKeyDown(Keys.Space))
                 {
-                    ball.XSpeed = generator.Next(1, 4);
-                    powerUp = false;
+                    if (ball.XSpeed > 0)
+                        ball.XSpeed = generator.Next(3, 6);
+
+                    else if (ball.XSpeed < 0)
+                        ball.XSpeed = generator.Next(-5, -2);
+
                 }
             }
 
@@ -210,6 +216,9 @@ namespace _12_Monogame_Summative_Breakout
                     brick.Draw(_spriteBatch);
 
                 //hitBox.Draw(_spriteBatch);
+
+                _spriteBatch.DrawString(speedFont, $"Ball X speed = {ball.XSpeed}", new Vector2(10, 500), Color.White);
+                _spriteBatch.DrawString(speedFont, $"Ball Y speed = {ball.YSpeed}", new Vector2(200, 500), Color.White);
 
                 _spriteBatch.End();
             }
