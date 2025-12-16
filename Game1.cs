@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace _12_Monogame_Summative_Breakout
@@ -17,6 +18,8 @@ namespace _12_Monogame_Summative_Breakout
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        Random generator = new Random();
+
         Texture2D ballTexture, barTexture, brickTexture;
         Ball ball;
         Bar bar;
@@ -29,6 +32,7 @@ namespace _12_Monogame_Summative_Breakout
         SpriteFont titleFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
+        bool powerUp = false;
 
         public Game1()
         {
@@ -41,7 +45,7 @@ namespace _12_Monogame_Summative_Breakout
         {
             // TODO: Add your initialization logic here
 
-            window = new Rectangle(0, 0, 700, 500);
+            window = new Rectangle(0, 0, 718, 500);
             _graphics.PreferredBackBufferWidth = window.Width;
             _graphics.PreferredBackBufferHeight = window.Height;
             _graphics.ApplyChanges();
@@ -130,7 +134,7 @@ namespace _12_Monogame_Summative_Breakout
             {
                 ballRect.X = 350;
                 ballRect.Y = 260;
-                barRect.X = 325;
+                barRect.X = 343;
                 barRect.Y = 480;
 
                 ball = new Ball(ballTexture, ballRect);
@@ -160,6 +164,12 @@ namespace _12_Monogame_Summative_Breakout
                         bricks.RemoveAt(i);
                     }
                 }
+
+                if (powerUp)
+                {
+                    ball.XSpeed = generator.Next(1, 4);
+                    powerUp = false;
+                }
             }
 
             else if (screen == Screen.Lose)
@@ -184,7 +194,7 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.Begin();
 
                 bar.Draw(_spriteBatch);
-                _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(125, 250), Color.White);
+                _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(143, 250), Color.White);
 
                 _spriteBatch.End();
             }

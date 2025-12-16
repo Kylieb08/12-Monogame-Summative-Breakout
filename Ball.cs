@@ -86,6 +86,12 @@ namespace _12_Monogame_Summative_Breakout
             set { _speed.Y = value; }
         }
 
+        public float XSpeed
+        {
+            get { return _speed.X; }
+            set { _speed.X = value; }
+        }
+
 
         public Vector2 Speed
         {
