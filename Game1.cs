@@ -32,7 +32,7 @@ namespace _12_Monogame_Summative_Breakout
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
-        bool powerUp = true, playAgain = false;
+        bool powerUp = false, playAgain = false;
 
         public Game1()
         {
@@ -67,40 +67,7 @@ namespace _12_Monogame_Summative_Breakout
             ball.Speed = ballSpeed;
 
             bar = new Bar(barTexture, barRect);
-
-            //for (int y = 0; y < 160; y += 22)
-            //{
-            //    for (int x = 0; x < window.Width; x += 72)
-            //    {
-            //        Rectangle brickRect = new Rectangle(x, y, 70, 20);
-
-            //        if (y < 22)
-            //            brickColour = Color.PaleVioletRed;
-
-            //        else if (y < 44)
-            //            brickColour = Color.Red;
-
-            //        else if (y < 66)
-            //            brickColour = Color.Orange;
-
-            //        else if (y < 88)
-            //            brickColour = Color.Yellow;
-
-            //        else if (y < 110)
-            //            brickColour = Color.Green;
-
-            //        else if (y < 132)
-            //            brickColour = Color.Blue;
-
-            //        else if (y < 154)
-            //            brickColour = Color.Purple;
-
-            //        else
-            //            brickColour = Color.MediumTurquoise;
-
-            //     bricks.Add(new Brick(brickTexture, brickRect, brickColour));
-            //    }
-            //}
+            
             GenerateBricks();
 
             brick = new Brick(brickTexture, brickRect, brickColour);
