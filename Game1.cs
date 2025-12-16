@@ -32,7 +32,7 @@ namespace _12_Monogame_Summative_Breakout
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
         Vector2 ballSpeed;
-        bool powerUp = true;
+        bool powerUp = false;
 
         public Game1()
         {
@@ -174,7 +174,6 @@ namespace _12_Monogame_Summative_Breakout
 
                     else if (ball.XSpeed < 0)
                         ball.XSpeed = generator.Next(-5, -2);
-
                 }
             }
 
