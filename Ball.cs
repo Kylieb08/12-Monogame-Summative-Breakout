@@ -29,6 +29,11 @@ namespace _12_Monogame_Summative_Breakout
             if (_location.Right > window.Width || _location.X < window.Left)
                 _speed.X *= -1;
 
+            if (_location.Right < 0)
+                _location.X = 0;
+
+            if (_location.X + 12 > window.Width)
+                _location.X = 706;
 
             if ( _location.Y <= window.Top)
                 _speed.Y *= -1;

@@ -13,6 +13,7 @@ namespace _12_Monogame_Summative_Breakout
         Lose,
         Win
     }
+
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -152,9 +153,11 @@ namespace _12_Monogame_Summative_Breakout
                     screen = Screen.Game;
 
                 if (playAgain)
+                {
+                    bricks.Clear();
                     GenerateBricks();
-
-                playAgain = false;
+                    playAgain = false;
+                }
             }
 
             else if (screen == Screen.Game)
@@ -168,7 +171,6 @@ namespace _12_Monogame_Summative_Breakout
                     screen = Screen.Lose;
                 }
 
-                //this doesn't work if ball X speed is +/-5
                 for (int i = 0; i < bricks.Count; i++)
                 {
                     if (bricks[i].Intersects(ball.Rect))
