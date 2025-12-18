@@ -30,10 +30,10 @@ namespace _12_Monogame_Summative_Breakout
                 _speed.X *= -1;
 
             if (_location.Right < 0)
-                _location.X = 0;
+                _location.X = 5;
 
             if (_location.X + 12 > window.Width)
-                _location.X = 706;
+                _location.X = 701;
 
             if ( _location.Y <= window.Top)
                 _speed.Y *= -1;
@@ -78,7 +78,6 @@ namespace _12_Monogame_Summative_Breakout
         {
             get { return _location; }
         }
-
 
         public float YSpeed
         {
