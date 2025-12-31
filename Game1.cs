@@ -37,7 +37,7 @@ namespace _12_Monogame_Summative_Breakout
         Vector2 ballSpeed;
         bool randomBallXSpeed = true, playAgain = false;
         SoundEffect boing, brickBreaking;
-        Song song;
+        Song bgMusic;
 
         public Game1()
         {
@@ -68,7 +68,7 @@ namespace _12_Monogame_Summative_Breakout
 
             base.Initialize();
 
-            ball = new Ball(ballTexture, ballRect);
+            ball = new Ball(ballTexture, ballRect, boing);
             ball.Speed = ballSpeed;
 
             bar = new Bar(barTexture, barRect);
@@ -94,7 +94,7 @@ namespace _12_Monogame_Summative_Breakout
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
             speedFont = Content.Load<SpriteFont>("Font/speedFont");
 
-            song = Content.Load<Song>("Sounds/Tetris");
+            bgMusic = Content.Load<Song>("Sounds/Tetris");
             boing = Content.Load<SoundEffect>("Sounds/Boing");
             brickBreaking = Content.Load<SoundEffect>("Sounds/brick_breaking");
         }
@@ -153,14 +153,14 @@ namespace _12_Monogame_Summative_Breakout
                 barRect.X = 343;
                 barRect.Y = 480;
 
-                ball = new Ball(ballTexture, ballRect);
+                ball = new Ball(ballTexture, ballRect, boing);
                 ball.Speed = new Vector2(3, 3);
 
                 bar = new Bar(barTexture, barRect);
                 if (keyboardState.IsKeyDown(Keys.Space))
                 {
                     screen = Screen.Game;
-                    MediaPlayer.Play(song);
+                    MediaPlayer.Play(bgMusic);
                 }
 
                 if (playAgain)
@@ -174,7 +174,7 @@ namespace _12_Monogame_Summative_Breakout
             else if (screen == Screen.Game)
             {
                 bar.Update(keyboardState, window);
-                ball.Update(window, bar);
+                ball.Update(window, bar, boing);
                 hitBox.Update(keyboardState);
                 
                 if (ball.Rect.Y > window.Bottom)

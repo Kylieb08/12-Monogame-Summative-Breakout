@@ -14,15 +14,17 @@ namespace _12_Monogame_Summative_Breakout
         private Vector2 _speed;
         private Rectangle _location;
         private Texture2D _texture;
+        private SoundEffect _soundEffect;
 
-        public Ball(Texture2D texture, Rectangle location)
+        public Ball(Texture2D texture, Rectangle location, SoundEffect soundEffect)
         {
             _speed = Vector2.Zero;
             _location = location;
             _texture = texture;
+            _soundEffect = soundEffect;
         }
 
-        public void Update(Rectangle window, Bar bar)
+        public void Update(Rectangle window, Bar bar, SoundEffect soundEffect)
         {
             _location.X += (int)_speed.X;
             _location.Y += (int)_speed.Y;
@@ -30,6 +32,7 @@ namespace _12_Monogame_Summative_Breakout
             if (_location.Right > window.Width || _location.X < window.Left)
             {
                 _speed.X *= -1;
+                soundEffect.Play();
             }
                 
 
@@ -42,11 +45,13 @@ namespace _12_Monogame_Summative_Breakout
             if ( _location.Y <= window.Top)
             {
                 _speed.Y *= -1;
+                soundEffect.Play();
             }
                 
 
             if (bar.Intersects(_location))
             {
+                soundEffect.Play();
                 if (_location.Bottom >= bar.BarRect.Top)
                 {
                     if (bar.BarRect.Left + (bar.BarRect.Width / 2) >= _location.Center.X)
