@@ -168,7 +168,6 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     bricks.Clear();
                     GenerateBricks();
-                    //MediaPlayer.Resume();
                     playAgain = false;
                 }
             }
@@ -205,6 +204,9 @@ namespace _12_Monogame_Summative_Breakout
 
                 if (bricks.Count == 0)
                     screen = Screen.Win;
+
+                if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
+                    ballRect.X = 347;
             }
 
             else if (screen == Screen.Lose)

@@ -34,10 +34,9 @@ namespace _12_Monogame_Summative_Breakout
                 _speed.X *= -1;
                 soundEffect.Play();
             }
-                
 
             if (_location.Right < 0)
-                _location.X = 5;
+                _location.X = 13;
 
             if (_location.X + 12 > window.Width)
                 _location.X = 701;
