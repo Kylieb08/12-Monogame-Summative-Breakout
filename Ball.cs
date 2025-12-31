@@ -47,7 +47,6 @@ namespace _12_Monogame_Summative_Breakout
                 _speed.Y *= -1;
                 soundEffect.Play();
             }
-                
 
             if (bar.Intersects(_location))
             {

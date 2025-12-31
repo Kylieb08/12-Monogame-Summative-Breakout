@@ -161,12 +161,14 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     screen = Screen.Game;
                     MediaPlayer.Play(bgMusic);
+                    MediaPlayer.IsRepeating = true;
                 }
 
                 if (playAgain)
                 {
                     bricks.Clear();
                     GenerateBricks();
+                    //MediaPlayer.Resume();
                     playAgain = false;
                 }
             }
@@ -207,7 +209,7 @@ namespace _12_Monogame_Summative_Breakout
 
             else if (screen == Screen.Lose)
             {
-                MediaPlayer.Stop();
+                MediaPlayer.Pause();
                 if (keyboardState.IsKeyDown (Keys.Enter))
                 {
                     playAgain = true;
@@ -217,7 +219,7 @@ namespace _12_Monogame_Summative_Breakout
 
             else if (screen == Screen.Win)
             {
-                MediaPlayer.Stop();
+                MediaPlayer.Pause();
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     playAgain = true;
