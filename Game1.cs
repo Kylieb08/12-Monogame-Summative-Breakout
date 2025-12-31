@@ -156,12 +156,12 @@ namespace _12_Monogame_Summative_Breakout
                 ball = new Ball(ballTexture, ballRect);
                 ball.Speed = new Vector2(3, 3);
 
-                bar = new Bar(barTexture, barRect);{
+                bar = new Bar(barTexture, barRect);
                 if (keyboardState.IsKeyDown(Keys.Space))
-                    {
-                        screen = Screen.Game;
-                    }
-                    
+                {
+                    screen = Screen.Game;
+                    MediaPlayer.Play(song);
+                }
 
                 if (playAgain)
                 {
@@ -207,6 +207,7 @@ namespace _12_Monogame_Summative_Breakout
 
             else if (screen == Screen.Lose)
             {
+                MediaPlayer.Stop();
                 if (keyboardState.IsKeyDown (Keys.Enter))
                 {
                     playAgain = true;
@@ -216,6 +217,7 @@ namespace _12_Monogame_Summative_Breakout
 
             else if (screen == Screen.Win)
             {
+                MediaPlayer.Stop();
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     playAgain = true;
