@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,10 @@ namespace _12_Monogame_Summative_Breakout
             _location.Y += (int)_speed.Y;
 
             if (_location.Right > window.Width || _location.X < window.Left)
+            {
                 _speed.X *= -1;
+            }
+                
 
             if (_location.Right < 0)
                 _location.X = 5;
@@ -36,7 +40,10 @@ namespace _12_Monogame_Summative_Breakout
                 _location.X = 701;
 
             if ( _location.Y <= window.Top)
+            {
                 _speed.Y *= -1;
+            }
+                
 
             if (bar.Intersects(_location))
             {

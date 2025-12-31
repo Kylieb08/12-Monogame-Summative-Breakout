@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -34,6 +36,8 @@ namespace _12_Monogame_Summative_Breakout
         List<Brick> bricks;
         Vector2 ballSpeed;
         bool randomBallXSpeed = true, playAgain = false;
+        SoundEffect boing, brickBreaking;
+        Song song;
 
         public Game1()
         {
@@ -89,6 +93,10 @@ namespace _12_Monogame_Summative_Breakout
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
             speedFont = Content.Load<SpriteFont>("Font/speedFont");
+
+            song = Content.Load<Song>("Sounds/Tetris");
+            boing = Content.Load<SoundEffect>("Sounds/Boing");
+            brickBreaking = Content.Load<SoundEffect>("Sounds/brick_breaking");
         }
 
         public void GenerateBricks()
@@ -148,9 +156,12 @@ namespace _12_Monogame_Summative_Breakout
                 ball = new Ball(ballTexture, ballRect);
                 ball.Speed = new Vector2(3, 3);
 
-                bar = new Bar(barTexture, barRect);
+                bar = new Bar(barTexture, barRect);{
                 if (keyboardState.IsKeyDown(Keys.Space))
-                    screen = Screen.Game;
+                    {
+                        screen = Screen.Game;
+                    }
+                    
 
                 if (playAgain)
                 {
@@ -177,6 +188,7 @@ namespace _12_Monogame_Summative_Breakout
                     {
                         ball.YSpeed *= -1;
                         bricks.RemoveAt(i);
+                        brickBreaking.Play();
                     }
                 }
 
