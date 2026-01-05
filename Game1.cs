@@ -23,19 +23,19 @@ namespace _12_Monogame_Summative_Breakout
 
         Random generator = new Random();
 
-        Texture2D ballTexture, barTexture, brickTexture;
+        Texture2D ballTexture, barTexture, brickTexture, powerUpTexture;
         Ball ball;
         Bar bar;
         Brick brick;
         BarHitBox hitBox;
-        Rectangle window, ballRect, barRect, brickRect;
+        Rectangle window, ballRect, barRect, brickRect, powerUpRect;
         KeyboardState keyboardState, prevKeyboardState;
         Screen screen;
         Color brickColour;
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
-        Vector2 ballSpeed;
-        bool randomBallXSpeed = true, playAgain = false;
+        Vector2 ballSpeed, powerUpSpeed;
+        bool powerUp = false, playAgain = false, randomBallxSpeed = false;
         SoundEffect boing, brickBreaking;
         Song bgMusic;
 
@@ -60,11 +60,13 @@ namespace _12_Monogame_Summative_Breakout
             ballRect = new Rectangle(10, 10, 12, 12);
             barRect = new Rectangle(325, 480, 70, 15);
             brickRect = new Rectangle(0, 0, 70, 20);
+            powerUpRect = new Rectangle(259, 165, 100, 100);
 
             brickColour = Color.DarkCyan;
             bricks = new List<Brick>();
 
             ballSpeed = new Vector2(3, 2);
+            powerUpSpeed = new Vector2(0, 0);
 
             base.Initialize();
 
@@ -90,6 +92,7 @@ namespace _12_Monogame_Summative_Breakout
             ballTexture = Content.Load<Texture2D>("Images/circle");
             barTexture = Content.Load<Texture2D>("Images/paddle");
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
+            powerUpTexture = Content.Load<Texture2D>("Images/ball_x_speed_effect");
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
             speedFont = Content.Load<SpriteFont>("Font/speedFont");
@@ -193,7 +196,7 @@ namespace _12_Monogame_Summative_Breakout
                     }
                 }
 
-                if (randomBallXSpeed && keyboardState.IsKeyUp(Keys.Space) && prevKeyboardState.IsKeyDown(Keys.Space))
+                if (randomBallxSpeed && keyboardState.IsKeyUp(Keys.Space) && prevKeyboardState.IsKeyDown(Keys.Space))
                 {
                     if (ball.XSpeed > 0)
                         ball.XSpeed = generator.Next(3, 6);
@@ -207,6 +210,21 @@ namespace _12_Monogame_Summative_Breakout
 
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
                     ballRect.X = 347;
+
+                if (bricks.Count < 61)
+                {
+                    powerUp = true;
+                    
+                }
+
+                if (powerUp)
+                {
+                    powerUpSpeed.Y += 1;
+                    powerUpRect.Offset(powerUpSpeed);
+                    if (bar.Intersects(powerUpRect))
+                        randomBallxSpeed = true;
+                }
+                    
             }
 
             else if (screen == Screen.Lose)
@@ -262,6 +280,9 @@ namespace _12_Monogame_Summative_Breakout
 
                 _spriteBatch.DrawString(speedFont, $"Ball X speed = {ball.XSpeed}", new Vector2(10, 500), Color.White);
                 _spriteBatch.DrawString(speedFont, $"Ball Y speed = {ball.YSpeed}", new Vector2(200, 500), Color.White);
+
+                if (powerUp)
+                    _spriteBatch.Draw(powerUpTexture, powerUpRect, Color.White);
 
                 _spriteBatch.End();
             }
