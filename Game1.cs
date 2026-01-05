@@ -36,8 +36,8 @@ namespace _12_Monogame_Summative_Breakout
         List<Brick> bricks;
         Vector2 ballSpeed, powerUpSpeed;
         bool powerUp = false, playAgain = false, randomBallxSpeed = false;
-        SoundEffect boing, brickBreaking;
-        Song bgMusic;
+        SoundEffect boing, brickBreaking, itemCollect;
+        Song bgMusic, gameLost, gameWon;
 
         public Game1()
         {
@@ -100,6 +100,9 @@ namespace _12_Monogame_Summative_Breakout
             bgMusic = Content.Load<Song>("Sounds/Tetris");
             boing = Content.Load<SoundEffect>("Sounds/Boing");
             brickBreaking = Content.Load<SoundEffect>("Sounds/brick_breaking");
+            itemCollect = Content.Load<SoundEffect>("Sounds/item_collect");
+            gameLost = Content.Load<Song>("Sounds/game_over");
+            gameWon = Content.Load<Song>("Sounds/game_cleared");
         }
 
         public void GenerateBricks()
@@ -151,6 +154,7 @@ namespace _12_Monogame_Summative_Breakout
             
             if (screen == Screen.Title)
             {
+                MediaPlayer.Stop();
                 ballRect.X = 350;
                 ballRect.Y = 260;
                 barRect.X = 343;
@@ -205,7 +209,7 @@ namespace _12_Monogame_Summative_Breakout
                         ball.XSpeed = generator.Next(-5, -2);
                 }
 
-                if (bricks.Count == 0)
+                if (bricks.Count == 70)
                     screen = Screen.Win;
 
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
@@ -222,14 +226,19 @@ namespace _12_Monogame_Summative_Breakout
                     powerUpSpeed.Y += 1;
                     powerUpRect.Offset(powerUpSpeed);
                     if (bar.Intersects(powerUpRect))
+                    {
                         randomBallxSpeed = true;
+                        itemCollect.Play();
+                    }
+                        
                 }
                     
             }
 
             else if (screen == Screen.Lose)
             {
-                MediaPlayer.Pause();
+                MediaPlayer.Stop();
+                MediaPlayer.Play(gameLost);
                 if (keyboardState.IsKeyDown (Keys.Enter))
                 {
                     playAgain = true;
@@ -239,7 +248,8 @@ namespace _12_Monogame_Summative_Breakout
 
             else if (screen == Screen.Win)
             {
-                MediaPlayer.Pause();
+                MediaPlayer.Stop();
+                MediaPlayer.Play(gameWon);
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     playAgain = true;
