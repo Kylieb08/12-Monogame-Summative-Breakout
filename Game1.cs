@@ -24,13 +24,14 @@ namespace _12_Monogame_Summative_Breakout
 
         Random generator = new Random();
 
-        Texture2D ballTexture, barTexture, brickTexture, powerUpTexture;
+        Texture2D ballTexture, barTexture, brickTexture, powerUpTexture, infoTexture;
         Ball ball;
         Bar bar;
         Brick brick;
         BarHitBox hitBox;
         Rectangle window, ballRect, barRect, brickRect, powerUpRect, infoScreenRect;
         KeyboardState keyboardState, prevKeyboardState;
+        MouseState mouseState;
         Screen screen;
         Color brickColour;
         SpriteFont titleFont, speedFont;
@@ -68,7 +69,7 @@ namespace _12_Monogame_Summative_Breakout
             bricks = new List<Brick>();
 
             ballSpeed = new Vector2(3, 2);
-            powerUpSpeed = new Vector2(0, 0);
+            powerUpSpeed = new Vector2(0, 2);
 
             base.Initialize();
 
@@ -95,6 +96,7 @@ namespace _12_Monogame_Summative_Breakout
             barTexture = Content.Load<Texture2D>("Images/paddle");
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
             powerUpTexture = Content.Load<Texture2D>("Images/ball_x_speed_effect");
+            infoTexture = Content.Load<Texture2D>("Images/info_screen");
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
             speedFont = Content.Load<SpriteFont>("Font/speedFont");
@@ -153,6 +155,8 @@ namespace _12_Monogame_Summative_Breakout
 
             prevKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
+
+            mouseState = Mouse.GetState();
             
             if (screen == Screen.Title)
             {
@@ -179,6 +183,18 @@ namespace _12_Monogame_Summative_Breakout
                     GenerateBricks();
                     playAgain = false;
                 }
+
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (infoScreenRect.Contains(mouseState.Position))
+                        screen = Screen.Info;
+                }
+            }
+
+            else if (screen == Screen.Info)
+            {
+                if (keyboardState.IsKeyDown(Keys.Enter))
+                    screen = Screen.Title;
             }
 
             else if (screen == Screen.Game)
@@ -186,7 +202,7 @@ namespace _12_Monogame_Summative_Breakout
                 bar.Update(keyboardState, window);
                 ball.Update(window, bar, boing);
                 hitBox.Update(keyboardState);
-                
+
                 if (ball.Rect.Y > window.Bottom)
                 {
                     screen = Screen.Lose;
@@ -217,10 +233,9 @@ namespace _12_Monogame_Summative_Breakout
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
                     ballRect.X = 347;
 
-                if (bricks.Count < 61)
+                if (bricks.Count < 71)
                 {
                     powerUp = true;
-                    
                 }
 
                 if (powerUp)
@@ -232,16 +247,16 @@ namespace _12_Monogame_Summative_Breakout
                         randomBallxSpeed = true;
                         itemCollect.Play();
                     }
-                        
+
                 }
-                    
+
             }
 
             else if (screen == Screen.Lose)
             {
                 MediaPlayer.Stop();
                 MediaPlayer.Play(gameLost);
-                if (keyboardState.IsKeyDown (Keys.Enter))
+                if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     playAgain = true;
                     screen = Screen.Title;
@@ -296,7 +311,7 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.DrawString(speedFont, $"Ball Y speed = {ball.YSpeed}", new Vector2(200, 500), Color.White);
 
                 if (powerUp)
-                    _spriteBatch.Draw(powerUpTexture, powerUpRect, Color.White);
+                    _spriteBatch.Draw(powerUpTexture, powerUpSpeed, powerUpRect, Color.White);
 
                 _spriteBatch.End();
             }
@@ -323,7 +338,16 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.End();
             }
 
-            base.Draw(gameTime);
+            else if (screen == Screen.Info)
+            {
+                _spriteBatch.Begin();
+
+                _spriteBatch.Draw(infoTexture, window, Color.White);
+
+                _spriteBatch.End();
+            }
+
+                base.Draw(gameTime);
         }
     }
 }
