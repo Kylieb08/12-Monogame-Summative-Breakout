@@ -13,7 +13,8 @@ namespace _12_Monogame_Summative_Breakout
         Title,
         Game,
         Lose,
-        Win
+        Win,
+        Info
     }
 
     public class Game1 : Game
@@ -28,7 +29,7 @@ namespace _12_Monogame_Summative_Breakout
         Bar bar;
         Brick brick;
         BarHitBox hitBox;
-        Rectangle window, ballRect, barRect, brickRect, powerUpRect;
+        Rectangle window, ballRect, barRect, brickRect, powerUpRect, infoScreenRect;
         KeyboardState keyboardState, prevKeyboardState;
         Screen screen;
         Color brickColour;
@@ -61,6 +62,7 @@ namespace _12_Monogame_Summative_Breakout
             barRect = new Rectangle(325, 480, 70, 15);
             brickRect = new Rectangle(0, 0, 70, 20);
             powerUpRect = new Rectangle(259, 165, 100, 100);
+            infoScreenRect = new Rectangle(10, 465, 130, 55);
 
             brickColour = Color.DarkCyan;
             bricks = new List<Brick>();
@@ -209,7 +211,7 @@ namespace _12_Monogame_Summative_Breakout
                         ball.XSpeed = generator.Next(-5, -2);
                 }
 
-                if (bricks.Count == 70)
+                if (bricks.Count == 0)
                     screen = Screen.Win;
 
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
@@ -272,6 +274,8 @@ namespace _12_Monogame_Summative_Breakout
 
                 bar.Draw(_spriteBatch);
                 _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(143, 250), Color.White);
+                _spriteBatch.Draw(brickTexture, infoScreenRect, Color.White);
+                _spriteBatch.DrawString(titleFont, "INFO", new Vector2(25, 473), Color.Black);
 
                 _spriteBatch.End();
             }
