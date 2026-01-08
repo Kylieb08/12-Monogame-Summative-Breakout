@@ -13,7 +13,8 @@ namespace _12_Monogame_Summative_Breakout
         Title,
         Game,
         Lose,
-        Win
+        Win,
+        Info
     }
 
     public class Game1 : Game
@@ -23,13 +24,14 @@ namespace _12_Monogame_Summative_Breakout
 
         Random generator = new Random();
 
-        Texture2D ballTexture, barTexture, brickTexture, powerUpTexture;
+        Texture2D ballTexture, barTexture, brickTexture, powerUpTexture, infoTexture;
         Ball ball;
         Bar bar;
         Brick brick;
         BarHitBox hitBox;
-        Rectangle window, ballRect, barRect, brickRect, powerUpRect;
+        Rectangle window, ballRect, barRect, brickRect, powerUpRect, infoScreenRect;
         KeyboardState keyboardState, prevKeyboardState;
+        MouseState mouseState;
         Screen screen;
         Color brickColour;
         SpriteFont titleFont, speedFont;
@@ -61,7 +63,8 @@ namespace _12_Monogame_Summative_Breakout
             ballRect = new Rectangle(10, 10, 12, 12);
             barRect = new Rectangle(325, 480, 70, 15);
             brickRect = new Rectangle(0, 0, 70, 20);
-            powerUpRect = new Rectangle(339, 245, 20, 20);
+            powerUpRect = new Rectangle(259, 165, 100, 100);
+            infoScreenRect = new Rectangle(10, 465, 130, 55);
 
             brickColour = Color.DarkCyan;
             bricks = new List<Brick>();
@@ -95,6 +98,7 @@ namespace _12_Monogame_Summative_Breakout
             barTexture = Content.Load<Texture2D>("Images/paddle");
             brickTexture = Content.Load<Texture2D>("Images/rectangle");
             powerUpTexture = Content.Load<Texture2D>("Images/ball_x_speed_effect");
+            infoTexture = Content.Load<Texture2D>("Images/info_screen");
 
             titleFont = Content.Load<SpriteFont>("Font/titleFont");
             speedFont = Content.Load<SpriteFont>("Font/speedFont");
@@ -154,6 +158,8 @@ namespace _12_Monogame_Summative_Breakout
             prevKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
 
+            mouseState = Mouse.GetState();
+            
             if (screen == Screen.Title)
             {
                 MediaPlayer.Stop();
@@ -183,6 +189,18 @@ namespace _12_Monogame_Summative_Breakout
                     randomBallxSpeed = false;
                     playAgain = false;
                 }
+
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (infoScreenRect.Contains(mouseState.Position))
+                        screen = Screen.Info;
+                }
+            }
+
+            else if (screen == Screen.Info)
+            {
+                if (keyboardState.IsKeyDown(Keys.Enter))
+                    screen = Screen.Title;
             }
 
             else if (screen == Screen.Game)
@@ -282,6 +300,8 @@ namespace _12_Monogame_Summative_Breakout
 
                 bar.Draw(_spriteBatch);
                 _spriteBatch.DrawString(titleFont, "Press Space to Start", new Vector2(143, 250), Color.White);
+                _spriteBatch.Draw(brickTexture, infoScreenRect, Color.White);
+                _spriteBatch.DrawString(titleFont, "INFO", new Vector2(25, 473), Color.Black);
 
                 _spriteBatch.End();
             }
@@ -331,7 +351,16 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.End();
             }
 
-            base.Draw(gameTime);
+            else if (screen == Screen.Info)
+            {
+                _spriteBatch.Begin();
+
+                _spriteBatch.Draw(infoTexture, window, Color.White);
+
+                _spriteBatch.End();
+            }
+
+                base.Draw(gameTime);
         }
     }
 }
