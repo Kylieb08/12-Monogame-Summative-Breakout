@@ -63,7 +63,7 @@ namespace _12_Monogame_Summative_Breakout
             ballRect = new Rectangle(10, 10, 12, 12);
             barRect = new Rectangle(325, 480, 70, 15);
             brickRect = new Rectangle(0, 0, 70, 20);
-            powerUpRect = new Rectangle(259, 165, 100, 100);
+            powerUpRect = new Rectangle(339, 245, 20, 20);
             infoScreenRect = new Rectangle(10, 465, 130, 55);
 
             brickColour = Color.DarkCyan;
@@ -254,13 +254,11 @@ namespace _12_Monogame_Summative_Breakout
                     if (bar.Intersects(powerUpRect))
                     {
                         randomBallxSpeed = true;
-                        itemCollect.Play();
+                        //itemCollect.Play(); <-- commented out until I can fix the collision because it sounds horrible
                         //powerUpRect.Y = 5000; <-- tried to use this to make the power up teleport off the screen. It didn't work
                         powerUp = false;
                     }
-
                 }
-
             }
 
             else if (screen == Screen.Lose)
@@ -323,8 +321,6 @@ namespace _12_Monogame_Summative_Breakout
 
                 _spriteBatch.DrawString(speedFont, $"Ball X speed = {ball.XSpeed}", new Vector2(10, 500), Color.White);
                 _spriteBatch.DrawString(speedFont, $"Ball Y speed = {ball.YSpeed}", new Vector2(200, 500), Color.White);
-
-
 
                 _spriteBatch.End();
             }
