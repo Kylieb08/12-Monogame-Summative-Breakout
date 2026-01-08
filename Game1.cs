@@ -61,13 +61,13 @@ namespace _12_Monogame_Summative_Breakout
             ballRect = new Rectangle(10, 10, 12, 12);
             barRect = new Rectangle(325, 480, 70, 15);
             brickRect = new Rectangle(0, 0, 70, 20);
-            powerUpRect = new Rectangle(259, 165, 100, 100);
+            powerUpRect = new Rectangle(339, 245, 20, 20);
 
             brickColour = Color.DarkCyan;
             bricks = new List<Brick>();
 
             ballSpeed = new Vector2(3, 2);
-            powerUpPosition = new Vector2(259, 165);
+            powerUpPosition = new Vector2(339, 245);
             powerUpSpeed = Vector2.Zero;
 
             base.Initialize();
@@ -177,9 +177,11 @@ namespace _12_Monogame_Summative_Breakout
                 {
                     bricks.Clear();
                     GenerateBricks();
+                    powerUp = false;
+                    powerUpPosition = new Vector2(339, 245);
+                    powerUpSpeed = Vector2.Zero;
+                    randomBallxSpeed = false;
                     playAgain = false;
-                    powerUpSpeed.Y = 0f;
-                    powerUpRect = new Rectangle(259, 165, 100, 100);
                 }
             }
 
@@ -215,17 +217,14 @@ namespace _12_Monogame_Summative_Breakout
                         ball.XSpeed = generator.Next(-5, -2);
                 }
 
-                if (bricks.Count == 70)
+                if (bricks.Count == 0)
                     screen = Screen.Win;
 
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
                     ballRect.X = 347;
 
                 if (bricks.Count < 79)
-                {
                     powerUp = true;
-                    
-                }
 
                 if (powerUp)
                 {
@@ -238,7 +237,7 @@ namespace _12_Monogame_Summative_Breakout
                     {
                         randomBallxSpeed = true;
                         itemCollect.Play();
-                        //powerUpRect.X = 10000;
+                        //powerUpRect.Y = 5000; <-- tried to use this to make the power up teleport off the screen. It didn't work
                         powerUp = false;
                     }
                         
