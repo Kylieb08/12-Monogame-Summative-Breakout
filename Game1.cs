@@ -34,7 +34,8 @@ namespace _12_Monogame_Summative_Breakout
         Color brickColour;
         SpriteFont titleFont, speedFont;
         List<Brick> bricks;
-        Vector2 ballSpeed, powerUpSpeed;
+        Vector2 ballSpeed, powerUpSpeed, powerUpPosition;
+        float powerUpFall = 1.5f;
         bool powerUp = false, playAgain = false, randomBallxSpeed = false;
         SoundEffect boing, brickBreaking, itemCollect;
         Song bgMusic, gameLost, gameWon;
@@ -66,7 +67,8 @@ namespace _12_Monogame_Summative_Breakout
             bricks = new List<Brick>();
 
             ballSpeed = new Vector2(3, 2);
-            powerUpSpeed = new Vector2(0, 0);
+            powerUpPosition = new Vector2(259, 165);
+            powerUpSpeed = Vector2.Zero;
 
             base.Initialize();
 
@@ -176,6 +178,8 @@ namespace _12_Monogame_Summative_Breakout
                     bricks.Clear();
                     GenerateBricks();
                     playAgain = false;
+                    powerUpSpeed.Y = 0f;
+                    powerUpRect = new Rectangle(259, 165, 100, 100);
                 }
             }
 
@@ -184,6 +188,8 @@ namespace _12_Monogame_Summative_Breakout
                 bar.Update(keyboardState, window);
                 ball.Update(window, bar, boing);
                 hitBox.Update(keyboardState);
+
+                powerUpSpeed.Y = 0f;
                 
                 if (ball.Rect.Y > window.Bottom)
                 {
@@ -215,7 +221,7 @@ namespace _12_Monogame_Summative_Breakout
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
                     ballRect.X = 347;
 
-                if (bricks.Count < 61)
+                if (bricks.Count < 79)
                 {
                     powerUp = true;
                     
@@ -223,12 +229,17 @@ namespace _12_Monogame_Summative_Breakout
 
                 if (powerUp)
                 {
-                    powerUpSpeed.Y += 1;
-                    powerUpRect.Offset(powerUpSpeed);
+                    powerUpSpeed.Y += powerUpFall;
+
+                    powerUpPosition.Y += powerUpSpeed.Y;
+                    powerUpRect.Location = powerUpPosition.ToPoint();
+                    
                     if (bar.Intersects(powerUpRect))
                     {
                         randomBallxSpeed = true;
                         itemCollect.Play();
+                        //powerUpRect.X = 10000;
+                        powerUp = false;
                     }
                         
                 }
@@ -280,6 +291,9 @@ namespace _12_Monogame_Summative_Breakout
             {
                 _spriteBatch.Begin();
 
+                if (powerUp)
+                    _spriteBatch.Draw(powerUpTexture, powerUpRect, Color.White);
+
                 ball.Draw(_spriteBatch);
                 bar.Draw(_spriteBatch);
                
@@ -291,8 +305,7 @@ namespace _12_Monogame_Summative_Breakout
                 _spriteBatch.DrawString(speedFont, $"Ball X speed = {ball.XSpeed}", new Vector2(10, 500), Color.White);
                 _spriteBatch.DrawString(speedFont, $"Ball Y speed = {ball.YSpeed}", new Vector2(200, 500), Color.White);
 
-                if (powerUp)
-                    _spriteBatch.Draw(powerUpTexture, powerUpRect, Color.White);
+                
 
                 _spriteBatch.End();
             }
