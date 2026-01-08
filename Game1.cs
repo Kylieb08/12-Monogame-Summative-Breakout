@@ -241,7 +241,7 @@ namespace _12_Monogame_Summative_Breakout
                 if (keyboardState.IsKeyUp(Keys.U) && prevKeyboardState.IsKeyDown(Keys.U))
                     ballRect.X = 347;
 
-                if (bricks.Count < 79)
+                if (bricks.Count < 61)
                     powerUp = true;
 
                 if (powerUp)
@@ -254,8 +254,8 @@ namespace _12_Monogame_Summative_Breakout
                     if (bar.Intersects(powerUpRect))
                     {
                         randomBallxSpeed = true;
-                        //itemCollect.Play(); <-- commented out until I can fix the collision because it sounds horrible
-                        //powerUpRect.Y = 5000; <-- tried to use this to make the power up teleport off the screen. It didn't work
+                        itemCollect.Play();
+                        powerUpPosition.X = 5000; 
                         powerUp = false;
                     }
                 }
